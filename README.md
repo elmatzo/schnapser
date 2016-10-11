@@ -1,6 +1,7 @@
 # vue-schnapser
 
 Fooling around with vue.js + vuex
+
 [Live Demo](http://schnapser.umbaldo.xyz)
 
 ## Build Setup
