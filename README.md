@@ -1,4 +1,4 @@
-# vue-schnapser
+# schnapser
 
 Fooling around with vue.js + vuex
 
