@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as getters from './getters'
+import * as types from './mutation-types'
 
 Vue.use(Vuex)
 
@@ -26,7 +27,7 @@ const state = {
 }
 
 const mutations = {
-  decrementScore (state, payload) {
+  [types.DECREMENT_SCORE] (state, payload) {
     let lastScore = state.runningGame[payload.player][state.runningGame[payload.player].length - 1]
     let newScore = lastScore - payload.amount
     mutations.handleScoreHistory(state, payload.player)
@@ -35,7 +36,7 @@ const mutations = {
   handleScoreHistory (state, player) {
     state.runningGame.scoreHistory.push(player)
   },
-  endGame (state, payload) {
+  [types.END_GAME] (state, payload) {
     let bummerl = 1
     if (state.runningGame.playerOneScores[state.runningGame.playerOneScores.length - 1] === 7 ||
       state.runningGame.playerTwoScores[state.runningGame.playerTwoScores.length - 1] === 7) {
@@ -45,11 +46,11 @@ const mutations = {
     state.players[payload.loser].bummerl += bummerl
     state.runningGame.winner = payload.winner
   },
-  startNewGame (state) {
+  [types.START_NEW_GAME] (state) {
     state.gameHistory.push(state.runningGame)
-    mutations.restartGame(state)
+    mutations[types.RESTART_GAME](state)
   },
-  restartGame (state) {
+  [types.RESTART_GAME] (state) {
     state.runningGame = {
       winner: null,
       schneider: false,
@@ -58,7 +59,7 @@ const mutations = {
       scoreHistory: []
     }
   },
-  undoPlayerScore (state, payload) {
+  [types.UNDO_PLAYER_SCORE] (state, payload) {
     state.runningGame[state.runningGame.scoreHistory.pop()].pop()
   }
 }

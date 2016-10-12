@@ -1,0 +1,5 @@
+export const DECREMENT_SCORE = 'DECREMENT_SCORE'
+export const END_GAME = 'END_GAME'
+export const START_NEW_GAME = 'START_NEW_GAME'
+export const RESTART_GAME = 'RESTART_GAME'
+export const UNDO_PLAYER_SCORE = 'UNDO_PLAYER_SCORE'

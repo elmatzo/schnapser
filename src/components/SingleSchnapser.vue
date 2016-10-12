@@ -70,6 +70,8 @@
   import Player from './Player.vue'
   import History from './History.vue'
   import { mapGetters } from 'vuex'
+  import * as types from '../vuex/mutation-types'
+
   export default {
     components: { Player, History },
     data () {
@@ -96,7 +98,7 @@
     },
     methods: {
       decrementPlayerOneScores (amount) {
-        this.$store.commit('decrementScore', {
+        this.$store.commit(types.DECREMENT_SCORE, {
           player: 'playerOneScores',
           amount
         })
@@ -105,7 +107,7 @@
         }
       },
       decrementPlayerTwoScores (amount) {
-        this.$store.commit('decrementScore', {
+        this.$store.commit(types.DECREMENT_SCORE, {
           player: 'playerTwoScores',
           amount
         })
@@ -115,17 +117,17 @@
       },
       finishGame (loser, winner) {
         this.gameRunning = false
-        this.$store.commit('endGame', {
+        this.$store.commit(types.END_GAME, {
           loser,
           winner
         })
       },
       startNewGame () {
-        this.$store.commit('startNewGame')
+        this.$store.commit(types.START_NEW_GAME)
         this.gameRunning = true
       },
       restartGame () {
-        this.$store.commit('restartGame')
+        this.$store.commit(types.RESTART_GAME)
         this.gameRunning = true
       },
       canUndo (player) {
@@ -143,7 +145,7 @@
         this.undo('playerTwoScores')
       },
       undo (player) {
-        this.$store.commit('undoPlayerScore', {player})
+        this.$store.commit(types.UNDO_PLAYER_SCORE, {player})
       }
     }
   }
