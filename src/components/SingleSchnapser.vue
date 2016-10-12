@@ -60,6 +60,7 @@
     </transition>
     <div class="new" v-if="!gameRunning">
       <h4 v-if="runningGame.schneider"><b>Schneider!</b></h4>
+      <h4 v-if="runningGame.schuster"><b>Schuster!</b></h4>
       <h4><b>{{ winnerName }}</b> hat gewonnen!</h4>
       <button class="btn btn-success" @click="startNewGame">neues Bummerl</button>
     </div>

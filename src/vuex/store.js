@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as getters from './getters'
 import * as types from './mutation-types'
+import {helpers} from './helpers'
 
 Vue.use(Vuex)
 
@@ -16,32 +17,27 @@ const state = {
       bummerl: 0
     }
   },
-  runningGame: {
-    winner: null,
-    schneider: false,
-    playerOneScores: [7],
-    playerTwoScores: [7],
-    scoreHistory: []
-  },
+  runningGame: helpers.getEmptyGame(),
   gameHistory: []
 }
 
 const mutations = {
   [types.DECREMENT_SCORE] (state, payload) {
-    let lastScore = state.runningGame[payload.player][state.runningGame[payload.player].length - 1]
+    let lastScore = helpers.getCurrentScoreForPlayer(state, payload.player)
     let newScore = lastScore - payload.amount
-    mutations.handleScoreHistory(state, payload.player)
     state.runningGame[payload.player].push(newScore < 0 ? 0 : newScore)
-  },
-  handleScoreHistory (state, player) {
-    state.runningGame.scoreHistory.push(player)
+
+    helpers.handleScoreHistory(state, payload.player)
+    helpers.handleSchusterLogic(state, payload.player)
   },
   [types.END_GAME] (state, payload) {
     let bummerl = 1
-    if (state.runningGame.playerOneScores[state.runningGame.playerOneScores.length - 1] === 7 ||
-      state.runningGame.playerTwoScores[state.runningGame.playerTwoScores.length - 1] === 7) {
+    if (helpers.checkForSchneider(state, payload.loser + 'Scores')) {
       bummerl = 2
       state.runningGame.schneider = true
+    } else if (helpers.checkForSchuster(state, payload.winner + 'Scores')) {
+      bummerl = 3
+      state.runningGame.schuster = true
     }
     state.players[payload.loser].bummerl += bummerl
     state.runningGame.winner = payload.winner
@@ -51,13 +47,7 @@ const mutations = {
     mutations[types.RESTART_GAME](state)
   },
   [types.RESTART_GAME] (state) {
-    state.runningGame = {
-      winner: null,
-      schneider: false,
-      playerOneScores: [7],
-      playerTwoScores: [7],
-      scoreHistory: []
-    }
+    state.runningGame = helpers.getEmptyGame()
   },
   [types.UNDO_PLAYER_SCORE] (state, payload) {
     state.runningGame[state.runningGame.scoreHistory.pop()].pop()
