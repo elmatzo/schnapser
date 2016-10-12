@@ -1,7 +1,8 @@
-# vue-schnapser
+# schnapser
 
 Fooling around with vue.js + vuex
-[Live Demo](http://schnapser.umbaldo.xyz)
+
+[hosted on gh-pages](http://schnapsen.umbaldo.xyz)
 
 ## Build Setup
 
