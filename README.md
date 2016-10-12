@@ -2,7 +2,7 @@
 
 Fooling around with vue.js + vuex
 
-[Live Demo](http://schnapsen.umbaldo.xyz)
+[hosted on gh-pages](http://schnapsen.umbaldo.xyz)
 
 ## Build Setup
 
