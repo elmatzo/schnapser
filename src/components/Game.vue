@@ -1,14 +1,10 @@
 <template>
   <div class="game">
-    <single-schnapser></single-schnapser>
+    <router-view class="view"></router-view>
   </div>
 </template>
 
 <script>
-import SingleSchnapser from './SingleSchnapser.vue'
 export default {
-  components: {
-    SingleSchnapser
-  }
 }
 </script>
