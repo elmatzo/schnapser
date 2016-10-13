@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as getters from './getters'
 import * as types from './mutation-types'
-import {helpers} from './helpers'
+import helpers from './helpers'
 
 Vue.use(Vuex)
 

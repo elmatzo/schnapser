@@ -1,4 +1,4 @@
-export const helpers = {
+export default {
   getEmptyGame () {
     return {
       winner: null,
@@ -20,21 +20,21 @@ export const helpers = {
     return 'playerOneScores'
   },
   handleSchusterLogic (state, playerThatScored) {
-    let playerToCheck = helpers.getPlayerToCheck(playerThatScored)
-    if (helpers.schusterIsPossible(state, playerThatScored, playerToCheck)) {
+    let playerToCheck = this.getPlayerToCheck(playerThatScored)
+    if (this.schusterIsPossible(state, playerThatScored, playerToCheck)) {
       state.runningGame.schusterPossibleFor = playerToCheck
     }
   },
   schusterIsPossible (state, playerThatScored, playerToCheck) {
-    let playerThatScoredIsOnLastPoint = helpers.getCurrentScoreForPlayer(state, playerThatScored) === 1
-    let playerToCheckIsOnFullPoints = helpers.getCurrentScoreForPlayer(state, playerToCheck) === 7
+    let playerThatScoredIsOnLastPoint = this.getCurrentScoreForPlayer(state, playerThatScored) === 1
+    let playerToCheckIsOnFullPoints = this.getCurrentScoreForPlayer(state, playerToCheck) === 7
     return playerThatScoredIsOnLastPoint && playerToCheckIsOnFullPoints
   },
   handleScoreHistory (state, player) {
     state.runningGame.scoreHistory.push(player)
   },
   checkForSchneider (state, loser) {
-    return helpers.getCurrentScoreForPlayer(state, loser) === 7
+    return this.getCurrentScoreForPlayer(state, loser) === 7
   },
   checkForSchuster (state, winner) {
     if (state.runningGame.schusterPossibleFor === winner) {
